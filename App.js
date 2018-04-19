@@ -14,6 +14,7 @@ import { HomeAdminScreen } from './pages/home-admin/home-admin';
 import { DetailsAdminScreen } from './pages/home-admin/details-admin';
 
 import { SignInScreen } from './pages/signin/singin';
+import { HomeCameraScreen } from './pages/camera/home-camera';
 
 
 // Home menu stack
@@ -64,6 +65,9 @@ if (!isadmin) {
     Second: {
       screen: HomeSecondStack,
     },
+    Third: {
+      screen: HomeCameraScreen,
+    },
   };
 } else {
   var menu = {
@@ -76,6 +80,7 @@ if (!isadmin) {
     Main2: {
       screen: HomeAdmin,
     },
+    
   };
 }
 
