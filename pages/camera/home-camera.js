@@ -1,6 +1,6 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, Button } from 'react-native';
-import { Camera, Permissions } from 'expo';
+import { Text, View, TouchableOpacity, Button, Vibration } from 'react-native';
+import { Camera, Permissions, FileSystem } from 'expo';
 
 export class HomeCameraScreen extends React.Component {
     static navigationOptions = {
@@ -11,21 +11,54 @@ export class HomeCameraScreen extends React.Component {
         type: Camera.Constants.Type.back,
     };
 
-    async componentWillMount() {
+    state = {
+        flash: 'off',
+        zoom: 0,
+        autoFocus: 'on',
+        depth: 0,
+        type: 'back',
+        whiteBalance: 'auto',
+        ratio: '16:9',
+        ratios: [],
+        photoId: 1,
+        showGallery: false,
+        photos: [],
+        faces: [],
+        permissionsGranted: false,
+    };
+
+    async componentDidMount() {
         const { status } = await Permissions.askAsync(Permissions.CAMERA);
         this.setState({ hasCameraPermission: status === 'granted' });
     }
 
-    snap = async () => {
-        if (this.camera) {
+    takePicture = async function () {
+        this.camera.takePictureAsync().then(data => {
 
+            console.log(data);
 
+            FileSystem.moveAsync({
+                from: data,
+                to: FileSystem.documentDirectory + 'photos/Photo_' + this.state.photoId + '.jpg',
+            }).then(() => {
 
-            let photo = await this.camera.takePictureAsync();
+                console.log("thats greate seems saved");
 
-            alert(photo);
-        }
-    };
+                this.setState({
+                    photoId: this.state.photoId + 1,
+                });
+                Vibration.vibrate();
+            }).catch((err) => {
+                console.log("Error : " + err);
+            });
+        }).catch(error => {
+            console.log(error);
+        });
+        Vibration.vibrate();
+
+        console.log("Taking pic" + this.state.photoId);
+    }
+
 
     render() {
         const { hasCameraPermission } = this.state;
@@ -65,9 +98,7 @@ export class HomeCameraScreen extends React.Component {
                     </Camera>
                     <Button
                         title="Get Picture"
-                        onPress={() => {
-                            this.snap();
-                        }}
+                        onPress={this.takePicture.bind(this)}
                     />
                 </View>
             );
