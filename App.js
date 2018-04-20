@@ -15,7 +15,7 @@ import { DetailsAdminScreen } from './pages/home-admin/details-admin';
 
 import { SignInScreen } from './pages/signin/singin';
 import { HomeCameraScreen } from './pages/camera/home-camera';
-import { CameraScreen } from './pages/camera/camera';
+import { HomeCalendarScreen } from './pages/calendar/home-calendar';
 
 // Home menu stack
 const HomeStack = StackNavigator({
@@ -60,9 +60,6 @@ const HomeCameraStack = StackNavigator({
   HomeCamera: {
     screen: HomeCameraScreen,
   },
-  Camera: {
-    screen: CameraScreen,
-  },
 
 }, {
     initialRouteName: 'HomeCamera',
@@ -82,6 +79,9 @@ if (!isadmin) {
     },
     Third: {
       screen: HomeCameraStack,
+    },
+    Four: {
+      screen: HomeCalendarScreen,
     },
   };
 } else {

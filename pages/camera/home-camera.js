@@ -1,27 +1,56 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, Button, Vibration } from 'react-native';
+import { Button, Image, View, CameraRoll, Vibration } from 'react-native';
+import { ImagePicker, FileSystem } from 'expo';
 
 export class HomeCameraScreen extends React.Component {
     static navigationOptions = {
-        title: 'Home Camera',
+        drawerLabel: 'Image Picker',
+        title: 'Camera Image Picker',
+    };
+    state = {
+        image: null,
     };
 
     render() {
-
-        const { params } = this.props.navigation.state;
-        const photo = params ? params.photo : null;
+        let { image } = this.state;
 
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>Camera Screen</Text>
-                <Text>Photo : {JSON.stringify(params)}</Text>
                 <Button
-                    title="Take Picture"
-                    onPress={() => {
-                        this.props.navigation.navigate('Camera');
-                    }}
+                    title="Pick an image from camera roll"
+                    onPress={this._pickImage}
                 />
+                {image &&
+                    <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
             </View>
         );
     }
+
+    _pickImage = async () => {
+        // let result = await ImagePicker.launchImageLibraryAsync({
+        let result = await ImagePicker.launchCameraAsync({
+            allowsEditing: true,
+            aspect: [4, 3],
+        });
+
+        console.log(result.uri);
+
+
+        if (!result.cancelled) {
+            CameraRoll.saveToCameraRoll(result.uri);
+
+           this.setState({ image: result.uri });
+
+            // var newPhoto = `${FileSystem.documentDirectory}/photo.jpg`;
+
+            // FileSystem.moveAsync({
+            //     from: result.uri,
+            //     to: newPhoto,
+            // }).then(() => {
+            //     this.setState({ image: newPhoto });
+            //     Vibration.vibrate();
+            // });
+
+        }
+    };
 }
