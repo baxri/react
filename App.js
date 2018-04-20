@@ -15,7 +15,7 @@ import { DetailsAdminScreen } from './pages/home-admin/details-admin';
 
 import { SignInScreen } from './pages/signin/singin';
 import { HomeCameraScreen } from './pages/camera/home-camera';
-
+import { CameraScreen } from './pages/camera/camera';
 
 // Home menu stack
 const HomeStack = StackNavigator({
@@ -54,6 +54,21 @@ const HomeSecondStack = StackNavigator({
     initialRouteName: 'HomeSecond',
   });
 
+
+// Camera stack
+const HomeCameraStack = StackNavigator({
+  HomeCamera: {
+    screen: HomeCameraScreen,
+  },
+  Camera: {
+    screen: CameraScreen,
+  },
+
+}, {
+    initialRouteName: 'HomeCamera',
+  });
+
+
 // user left menu stack check if is admin or not
 let isadmin = 0;
 
@@ -66,7 +81,7 @@ if (!isadmin) {
       screen: HomeSecondStack,
     },
     Third: {
-      screen: HomeCameraScreen,
+      screen: HomeCameraStack,
     },
   };
 } else {
@@ -74,13 +89,6 @@ if (!isadmin) {
     Main: {
       screen: HomeAdmin,
     },
-    Main1: {
-      screen: HomeAdmin,
-    },
-    Main2: {
-      screen: HomeAdmin,
-    },
-    
   };
 }
 
