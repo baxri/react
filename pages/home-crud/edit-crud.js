@@ -16,6 +16,14 @@ export class EditCrudScreen extends React.Component {
         name: '',
     };
 
+    saveUser() {
+        alert(this.state.name);
+    }
+
+    handleChange(e) {
+        this.setState({ name: e.target.value });
+    }
+
     render() {
 
         const { params } = this.props.navigation.state;
@@ -26,7 +34,18 @@ export class EditCrudScreen extends React.Component {
         return (
             <View style={{ flex: 1 }}>
                 <FormLabel>Name</FormLabel>
-                <FormInput value={this.state.name} />
+                <FormInput
+                    onChange={this.handleChange.bind(this)}
+                    value={this.state.name}
+                />
+
+                <Button
+                    large
+                    iconRight={{ name: 'code' }}
+                    title={this.state.name}
+                    onPress={() => {
+                        this.saveUser()
+                    }} />
             </View>
         );
     }
