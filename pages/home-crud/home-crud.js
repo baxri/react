@@ -23,12 +23,12 @@ class FlatListItem extends React.Component {
                 {
                     text: 'Edit',
                     backgroundColor: 'rgb(81,134,237)',
-                    onPress: this.ShowEdit
+                    onPress: this.onEditItem
                 },
                 {
                     text: 'Delete',
                     backgroundColor: 'rgb(217,80,64)',
-                    onPress: this.ShowDelete
+                    onPress: this.onDeleteItem
                 }
             ]} autoClose={true}>
                 <View style={styles.item}>
@@ -93,7 +93,7 @@ export class HomeCrudScreen extends React.Component {
                             }}
 
                             onEditItem={() => {
-                                this.navigation.navigate('EditCrud', {
+                                this.props.navigation.navigate('EditCrud', {
                                     itemId: item.id,
                                     description: "Hi I am from home second page :D",
                                 })
