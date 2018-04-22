@@ -24,6 +24,7 @@
     "react-native": "0.54.0",
     "react-native-calendar-picker": "^5.18.0",
     "react-native-events-calendar": "^1.0.8",
+    "react-native-swipeout": "^2.3.3",
     "react-navigation": "^1.5.11"
   }
 }

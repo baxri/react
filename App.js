@@ -17,6 +17,10 @@ import { SignInScreen } from './pages/signin/singin';
 import { HomeCameraScreen } from './pages/camera/home-camera';
 import { HomeCalendarScreen } from './pages/calendar/home-calendar';
 
+import { HomeCrudScreen } from './pages/home-crud/home-crud';
+import { DetailsCrudScreen } from './pages/home-crud/details-crud';
+import { EditCrudScreen } from './pages/home-crud/edit-crud';
+
 // Home menu stack
 const HomeStack = StackNavigator({
   Home: {
@@ -55,6 +59,23 @@ const HomeSecondStack = StackNavigator({
   });
 
 
+// Crud stack
+const HomeCrudStack = StackNavigator({
+  HomeCrud: {
+    screen: HomeCrudScreen,
+  },
+  DetailsCrud: {
+    screen: DetailsCrudScreen,
+  },
+  EditCrud: {
+    screen: EditCrudScreen,
+  },
+
+}, {
+    initialRouteName: 'HomeCrud',
+  });
+
+
 // Camera stack
 const HomeCameraStack = StackNavigator({
   HomeCamera: {
@@ -82,6 +103,9 @@ if (!isadmin) {
     },
     Four: {
       screen: HomeCalendarScreen,
+    },
+    Five: {
+      screen: HomeCrudStack,
     },
   };
 } else {
