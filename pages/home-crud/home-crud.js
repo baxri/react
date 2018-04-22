@@ -93,10 +93,7 @@ export class HomeCrudScreen extends React.Component {
                             }}
 
                             onEditItem={() => {
-                                this.props.navigation.navigate('EditCrud', {
-                                    itemId: item.id,
-                                    description: "Hi I am from home second page :D",
-                                })
+                                this.props.navigation.navigate('EditCrud', item)
                             }}
 
                             onDeleteItem={() => {

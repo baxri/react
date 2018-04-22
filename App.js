@@ -1,3 +1,6 @@
+// https://react-native-training.github.io/react-native-elements/docs/0.19.0/forms.html
+
+
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { StackNavigator, DrawerNavigator, SwitchNavigator } from 'react-navigation';
