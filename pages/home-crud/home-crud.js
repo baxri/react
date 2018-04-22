@@ -3,39 +3,41 @@ import { StyleSheet, Text, View, Button, FlatList, Dimensions } from 'react-nati
 import User from '../../models/user';
 import Swipeout from 'react-native-swipeout';
 
-let FlatListItem = props => {
+class FlatListItem extends React.Component {
 
-    const { itemIndex, id, onPressItem, onEditItem, navigation } = props;
-
-    ShowEdit = () => {
-        navigation.navigate('EditCrud', {
-            itemId: id,
-            description: "Hi I am from home second page :D",
-        })
+    onPressItem = () => {
+        this.props.onPressItem()
     }
 
-    ShowDelete = () => {
-
+    onEditItem = () => {
+        this.props.onEditItem()
     }
 
-    return (
-        <Swipeout right={[
-            {
-                text: 'Edit',
-                backgroundColor: 'rgb(81,134,237)',
-                onPress: ShowEdit
-            },
-            {
-                text: 'Delete',
-                backgroundColor: 'rgb(217,80,64)',
-                onPress: ShowDelete
-            }
-        ]} autoClose={true}>
-            <View style={styles.item}>
-                <Text>Swipe me left</Text>
-            </View>
-        </Swipeout>
-    );
+    onDeleteItem = () => {
+        this.props.onDeleteItem()
+    }
+
+    render() {
+        return (
+            <Swipeout right={[
+                {
+                    text: 'Edit',
+                    backgroundColor: 'rgb(81,134,237)',
+                    onPress: this.ShowEdit
+                },
+                {
+                    text: 'Delete',
+                    backgroundColor: 'rgb(217,80,64)',
+                    onPress: this.ShowDelete
+                }
+            ]} autoClose={true}>
+                <View style={styles.item}>
+                    <Text>Swipe me left</Text>
+                </View>
+            </Swipeout>
+        );
+    }
+
 }
 
 export class HomeCrudScreen extends React.Component {
@@ -87,13 +89,19 @@ export class HomeCrudScreen extends React.Component {
                         <FlatListItem {...item} itemIndex={index}
 
                             onPressItem={() => {
-                                alert("OK");
+                                alert("PRESS");
                             }}
 
                             onEditItem={() => {
-
+                                this.navigation.navigate('EditCrud', {
+                                    itemId: item.id,
+                                    description: "Hi I am from home second page :D",
+                                })
                             }}
-                            navigation={this.navigation}
+
+                            onDeleteItem={() => {
+                                alert("DELETE");
+                            }}
 
                         />
                     }
