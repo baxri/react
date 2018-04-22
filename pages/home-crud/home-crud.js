@@ -2,6 +2,10 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, FlatList, Dimensions } from 'react-native';
 import User from '../../models/user';
 import Swipeout from 'react-native-swipeout';
+import Expo, { SQLite } from 'expo';
+
+import { countDocs } from '../../database';
+import localdb, { queryDocs } from '../../database';
 
 class FlatListItem extends React.Component {
 
@@ -50,6 +54,7 @@ export class HomeCrudScreen extends React.Component {
     }
 
     state = {
+        count: 0,
         refreshig: false,
         list: [
             { id: 1, name: 'Giorgi Bibilashvili' },
@@ -75,10 +80,20 @@ export class HomeCrudScreen extends React.Component {
         }, 1000)
     };
 
+    componentDidMount() {
+        this.recount();
+    };
+
+    recount = () => {
+        countDocs().then(num => {
+            this.setState({ count: num });
+        }).catch(error => this.setState(error));
+    };
 
     render() {
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <Text>{this.state.count}</Text>
                 <FlatList
                     removeClippedSubviews={false}
                     refreshing={this.state.refreshig}
@@ -104,6 +119,7 @@ export class HomeCrudScreen extends React.Component {
                     }
                     keyExtractor={item => item.id}
                 />
+
             </View>
         );
     }
