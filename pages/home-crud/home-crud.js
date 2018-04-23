@@ -4,6 +4,7 @@ import User from '../../models/user';
 import Swipeout from 'react-native-swipeout';
 import Expo, { SQLite } from 'expo';
 
+
 import { countDocs } from '../../database';
 import localdb, { queryDocs } from '../../database';
 
@@ -36,7 +37,7 @@ class FlatListItem extends React.Component {
                 }
             ]} autoClose={true}>
                 <View style={styles.item}>
-                    <Text>Swipe me left</Text>
+                    <Text>SWIPE LEFT</Text>
                 </View>
             </Swipeout>
         );
@@ -49,9 +50,15 @@ export class HomeCrudScreen extends React.Component {
         drawerLabel: 'Home Crud',
         title: 'Home Crud',
     };
-    constructor() {
-        super();
+
+    constructor(props) {
+        super(props)
     }
+
+    componentDidMount() {
+        // this.onRefresh();
+        this.recount();
+    };
 
     state = {
         count: 0,
@@ -68,20 +75,32 @@ export class HomeCrudScreen extends React.Component {
     };
 
     onRefresh = async () => {
+
+        console.log('start loading');
+
         this.setState({
             refreshig: true
         });
 
+
+        console.log('start loading started');
+
+
+        // queryDocs().then(result => {
+
+        //     console.log("RESULT IS COMMING");
+        //     console.log(result);
+
+        //     // this.setstate({ list: result, refreshig: false });
+        // }).catch(error => {
+        //     // console.log(error);
+        // });
 
         setTimeout(() => {
             this.setState({
                 refreshig: false
             });
         }, 1000)
-    };
-
-    componentDidMount() {
-        this.recount();
     };
 
     recount = () => {

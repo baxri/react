@@ -3,8 +3,6 @@ import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 
 import { addDoc } from '../../database';
-import localdb, { queryDocs } from '../../database';
-
 
 export class EditCrudScreen extends React.Component {
 
@@ -29,9 +27,18 @@ export class EditCrudScreen extends React.Component {
 
         addDoc(this.state.name).then(result => {
             console.log(result);
+
+            queryDocs().then(result => {
+                // console.log(result);
+            }).catch(error => {
+                // console.log(error);
+            });
+
         }).catch(error => {
             console.log(error);
         });
+
+
 
     }
 
